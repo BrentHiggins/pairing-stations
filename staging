@@ -1,11 +1,11 @@
 # Copyright (c) 2016-2017 Dell Inc. or its subsidiaries. All Rights Reserved.
 
 [mn-pairs]
-#lime-pair.local
-#lemon-pair.local
+lime-pair.local
+lemon-pair.local
 pear-pair.local
-#apple-pair.local
-#durian-pair.local
+apple-pair.local
+durian-pair.local
 
 [mn-key-these]
 apple-pair.local

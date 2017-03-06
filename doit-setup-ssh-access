@@ -6,4 +6,5 @@
 #  I.e., this playbook bootstraps the other real ones, and only
 #    really needs to be run on servers once (though it doesn't
 #    hurt to do more than one pass)
+source myenv_pairing  # <- if this fails, run ./mkenv.sh first
 ansible-playbook -i staging playbooks/key-boxes.yml -k -K
