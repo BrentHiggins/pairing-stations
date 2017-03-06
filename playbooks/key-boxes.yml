@@ -1,0 +1,36 @@
+---
+# Sets up a pairing station
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- hosts: mn-key-these
+  remote_user: pair
+  tasks:
+    - name: Set authorized key for user pair copying it from current user
+      remote_user: pair
+      authorized_key:
+        user: pair
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+    - name: Add ansible remote_user
+      remote_user: pair
+      become: yes
+      user:
+        name: "ansible"
+        group: nopasswdlogin
+        append: yes
+    - name: Allow 'nopasswdlogin' to have passwordless sudo
+      remote_user: pair
+      become: yes
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%nopasswdlogin'
+        line: '%nopasswdlogin ALL=(ALL) NOPASSWD: ALL'
+        validate: visudo -cf %s
+    - name: Set authorized key for user ansible copying it from current user
+      #remote_user: ansible
+      become: yes
+      authorized_key:
+        user: ansible
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

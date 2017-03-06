@@ -1,0 +1,15 @@
+---
+# Add various ops to .bashrc
+# Copyright (c) 2016-2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: set various non-role specific .bashrc lines
+  remote_user: pair
+  become: false
+  blockinfile:
+    dest: .bashrc
+    state: present
+    block: |
+      export GIT_TERMINAL_PROMPT=1
+      git config --global credential.helper 'cache --timeout=3600'
+      git config --global push.default simple
+      PROMPT_DIRTRIM=2

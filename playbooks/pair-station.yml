@@ -1,0 +1,23 @@
+---
+# Sets up a pairing station
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+
+- hosts: mn-pairs
+  remote_user: ansible
+  become: yes
+  roles:
+    - base-os
+    - chrome
+    - terminator
+    - atom
+    - go-things
+    - docker
+    - vagrant
+    - microsoft-code
+    - bash-it
+    - git-duet
+    - misc-bash-settings
+    - desktop-settings
+
+

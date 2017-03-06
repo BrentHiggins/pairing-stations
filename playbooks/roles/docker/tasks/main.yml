@@ -1,0 +1,15 @@
+---
+# playbook to bring in main docker pieces
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Make sure docker and friends are installed
+  apt: name={{ item }} update_cache=yes
+  with_list:
+    - docker.io
+    - docker-compose
+
+- name: Add users to docker group
+  user:
+    name: "pair"
+    groups: docker
+    append: true

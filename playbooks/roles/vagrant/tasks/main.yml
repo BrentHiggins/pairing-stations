@@ -1,0 +1,9 @@
+---
+# playbook to bring in vagrant pieces
+# Copyright (c) 2016-2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Install pieces required for vagrant, including virtualbox
+  apt: name={{ item }} update_cache=yes
+  with_list:
+    - virtualbox
+    - vagrant

@@ -1,0 +1,34 @@
+---
+# Installs bash-it utilities
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Install bash-it into workspace
+  remote_user: pair
+  become: no
+  git:
+    repo: https://github.com/Bash-it/bash-it.git
+    dest: ~/.bash_it
+    depth: 1
+
+- name: Run bash-it Install
+  remote_user: pair
+  become: no
+  shell: ~/.bash_it/install.sh --silent
+  args:
+    executable: /bin/bash
+    creates: ~/.bash_it/plugins/enabled/base.plugin.bash
+
+- name: copy in bash-it custom configuration
+  remote_user: pair
+  become: no
+  copy:
+    src: custom/
+    dest: ~/.bash_it/custom/
+
+- name: set theme in .bashrc
+  remote_user: pair
+  become: no
+  lineinfile:
+    dest: ~/.bashrc
+    regexp: '^export BASH_IT_THEME='
+    line: export BASH_IT_THEME='bakke'

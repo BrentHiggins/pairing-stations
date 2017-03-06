@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Copyright (c) 2016-2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+#
+# -k and -K force playbook to ask you for the passwords to login
+#  I.e., this playbook bootstraps the other real ones, and only
+#    really needs to be run on servers once (though it doesn't
+#    hurt to do more than one pass)
+ansible-playbook -i staging playbooks/key-boxes.yml -k -K

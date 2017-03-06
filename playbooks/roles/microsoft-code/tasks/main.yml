@@ -1,0 +1,14 @@
+---
+# Install microsoft code studio
+# Copyright (c) 2016-2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Install the studio
+  apt:
+    deb: https://go.microsoft.com/fwlink/?LinkID=760868
+
+- name: Copy in starting config
+  remote_user: pair
+  become: false
+  copy:
+    src: User/
+    dest: ~/.config/Code/User

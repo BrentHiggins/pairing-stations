@@ -1,0 +1,19 @@
+---
+# This playbook installs terminator and its config file
+
+- name: install terminator
+  apt: name=terminator
+
+- name: make terminator configuration dir
+  file:
+    path: ~pair/.config/terminator
+    state: directory
+    owner: pair
+    group: pair
+
+- name: install our terminator configuration file
+  copy:
+    src: config
+    dest: ~pair/.config/terminator/config
+    owner: pair
+    group: pair

@@ -1,0 +1,35 @@
+"*":
+  "atom-material-ui":
+    colors:
+      abaseColor: "#2196f3"
+      predefinedColor: "Blue"
+    tabs:
+      compactTabs: true
+    treeView:
+      compactList: true
+    ui:
+      panelContrast: true
+      panelShadows: true
+  core:
+    telemetryConsent: "no"
+    themes: [
+      "seti-ui"
+      "monokai-seti"
+    ]
+    warnOnLargeFileLimit: 5
+  editor:
+    invisibles: {}
+    showIndentGuide: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "850742c4-8098-8646-0c4b-38ac9a703be9"
+  "go-plus":
+    format: {}
+    lint: {}
+    test:
+      runTestsOnSave: false
+  "highlight-column": {}
+  "seti-ui":
+    compactView: true
+  welcome:
+    showOnStartup: false

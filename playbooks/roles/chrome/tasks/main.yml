@@ -1,0 +1,14 @@
+---
+# Installs chrome
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: install chrome preconditions
+  apt: name={{ item }} update_cache=yes
+  with_list:
+    - libxss1
+    - libappindicator1
+    - libindicator7
+
+- name: install chrome
+  apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

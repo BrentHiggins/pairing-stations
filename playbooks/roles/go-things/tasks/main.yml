@@ -1,0 +1,62 @@
+---
+# Install all the go-things, including gvm
+
+- name: gvm prereqs
+  apt: name={{ item }} update_cache=yes
+  with_list:
+    - curl
+    - git
+    - mercurial
+    - make
+    - binutils
+    - bison
+    - gcc
+    - build-essential
+
+- name: gvm funky bash script install thing of sillyness
+  remote_user: pair
+  become: false
+  shell: bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+  args:
+    creates: ~/.gvm/scripts/gvm
+    executable: /bin/bash
+
+- name: make gvm available always via .bashrc
+  remote_user: pair
+  become: false
+  lineinfile:
+    dest: .bashrc
+    line: source ~/.gvm/scripts/gvm
+
+- name: Install Golang version 1.4 (bootstrap)
+  remote_user: pair
+  become: false
+  shell: source ~/.gvm/scripts/gvm && gvm install go1.4 -B && gvm use go1.4
+  args:
+    creates: ~/.gvm/gos/go1.4
+    executable: /bin/bash
+
+- name: Install Gllang version 1.7.4
+  remote_user: pair
+  become: false
+  shell: source ~/.gvm/scripts/gvm && gvm use go1.4 && export GOROOT_BOOTSTRAP=$GOROOT && gvm install go1.7.4
+  args:
+    creates: ~/.gvm/gos/go1.7.4
+    executable: /bin/bash
+
+- name: Activate Golang version 1.7.4
+  remote_user: pair
+  become: false
+  shell: source ~/.gvm/scripts/gvm && gvm use go1.7.4 --default
+  args:
+    # contents of default would be better, but getting it done.
+    creates: .gvm/environments/default
+    executable: /bin/bash
+
+- name: Install go swagger
+  remote_user: pair
+  become: false
+  shell: source ~/.gvm/scripts/gvm && go get -u github.com/go-swagger/go-swagger/cmd/swagger
+  args:
+    executable: /bin/bash
+    creates: ~/.gvm/pkgsets/go1.7.4/global/src/github.com/go-swagger/go-swagger/README.md

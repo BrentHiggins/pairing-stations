@@ -1,0 +1,65 @@
+---
+# Setup the common desktop settings
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: disable screen lock
+  gsettings:
+    user: pair
+    key: org.gnome.desktop.screensaver.{{ item }}
+    value: "false"
+  with_list:
+    - logout-enabled
+    - lock-enabled
+    - ubuntu-lock-on-suspend
+
+- name: Set hour long idle
+  gsettings:
+    user: pair
+    key: org.gnome.desktop.screensaver.logout-delay
+    value: 7200
+
+- name: Clear lock delay
+  gsettings:
+    user: pair
+    key: org.gnome.desktop.screensaver.lock-delay
+    value: 0
+
+# vnc setup doesn't work yet, and I'm not sure that's what we want anyway!
+#- name: enable vnc
+#  gsettings:
+#    user: pair
+#    key: org.gnome.Vino.enabled
+#    value: "true"
+
+# - name: set vnc password
+#   gsettings:
+#     user: pair
+#     key: org.gnome.Vino.vnc-password
+#     value: ""
+
+# - name: clear vnc prompt enabled
+#   gsettings:
+#     user: pair
+#     key: org.gnome.Vino.prompt-enabled
+#     value: "false"
+
+# - name: set vnc auth methods
+#   gsettings:
+#     user: pair
+#     key: org.gnome.Vino.authentication-methods
+#     value: "'vnc'"
+
+# - name: workaround for gnome bug in encryption to/from macs
+#   gsettings:
+#     user: pair
+#     key: org.gnone.vino.require-encryption
+#     value: "false"
+
+
+# does not work yet
+#- name: Add applications to dock
+#  gsettings:
+#    user: pair
+#    key: com.canonical.Unity.Launcher.favorites
+#    append: true
+#    value: application://code.desktop

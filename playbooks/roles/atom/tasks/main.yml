@@ -1,0 +1,14 @@
+---
+# Installs atom editor
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Install atom editor
+  apt:
+    deb: https://atom.io/download/deb
+
+- name: make atom configuration dir
+  remote_user: pair
+  become: false
+  copy:
+    src: atom/
+    dest: ~/.atom

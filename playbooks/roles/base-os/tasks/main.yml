@@ -1,0 +1,12 @@
+---
+# playbook to update all apt installed stuff
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Make sure all base developer packages installed
+  apt: name={{ item }} update_cache=yes
+  with_list:
+    - vim
+    - git
+    - bison
+    - emacs
+    - ansible

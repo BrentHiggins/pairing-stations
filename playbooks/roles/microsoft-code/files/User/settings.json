@@ -1,0 +1,26 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "files.autoSave": "afterDelay",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/*~": true,
+        "**/*.pyc": true
+    },
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--config",
+        "../../.flake8",
+        "--config",
+        "../.flake8",
+        "--config",
+        ".flake8"
+    ],
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "none",
+    "window.zoomLevel": 0
+}
