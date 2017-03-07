@@ -3,4 +3,4 @@
 # Copyright (c) 2016-2017 Dell Inc. or its subsidiaries. All Rights Reserved.
 #
 source myenv_pairing  # <- if this fails, run ./mkenv.sh first
-ansible-paybook -i staging playbooks/pair-station.yml
+ansible-playbook -i staging playbooks/pair-station.yml

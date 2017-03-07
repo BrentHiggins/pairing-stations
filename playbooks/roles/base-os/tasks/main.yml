@@ -10,3 +10,7 @@
     - bison
     - emacs
     - ansible
+    - virtualenv
+    - python-dev    # need for pip stuff
+    - libffi-dev    #  pycrypto needs
+    - libssl-dev    #      "      "

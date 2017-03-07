@@ -6,4 +6,7 @@
   apt: name={{ item }} update_cache=yes
   with_list:
     - virtualbox
-    - vagrant
+
+- name: pull 1.9.2 vagrant, since xenial's 1.8 does not support xenial in the virtualbox
+  apt:
+    deb: https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.deb
