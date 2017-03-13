@@ -4,7 +4,7 @@
 
 - name: install chrome preconditions
   apt: name={{ item }} update_cache=yes
-  with_list:
+  with_items:
     - libxss1
     - libappindicator1
     - libindicator7

@@ -4,7 +4,7 @@
 
 - name: Make sure all base developer packages installed
   apt: name={{ item }} update_cache=yes
-  with_list:
+  with_items:
     - vim
     - git
     - bison

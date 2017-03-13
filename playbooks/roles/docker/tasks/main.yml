@@ -4,7 +4,7 @@
 
 - name: Make sure docker and friends are installed
   apt: name={{ item }} update_cache=yes
-  with_list:
+  with_items:
     - docker.io
     - docker-compose
 

@@ -1,3 +1,5 @@
 *~
 .venv
 myenv_*
+*.retry
+anyconnect*tar.gz

@@ -1,0 +1,81 @@
+---
+# install vpn package, if present.  This role will
+# skip the install if it can't find the base tgz either already
+# on the target machine OR sitting in the root of the (git) tree.
+
+- name: hello there
+  debug:
+    msg: "sdfsdfsdf"
+  tags: vpn
+
+- name: Determine if vpn package is on local box
+  become: no
+  local_action:
+    module: find
+    paths: ".."
+    patterns: "anyconnect*.tar.gz"
+  register: anyconnect_find_result
+  tags: vpn
+
+- name: Checking for confusing sets of anyconnects
+  tags: vpn
+  fail:
+    msg: "There is more than one anyconnect package available {{ anyconnect_find_result }}"
+  when: anyconnect_find_result.matched > 1
+
+- name: Copy in anyconnect if local exists
+  remote_user: ansible
+  become: no
+  copy:
+    src: "{{ anyconnect_find_result.files[0].path }}"
+    dest: "~/{{ anyconnect_find_result.files[0].path | basename }}"
+  when: anyconnect_find_result.matched == 1
+  tags: vpn
+
+- name: Find remote file if there
+  remote_user: ansible
+  become: no
+  find:
+    path: "."
+    patterns: "anyconnect*.tar.gz"
+  register: remote_find_result
+  tags: vpn
+
+- name: Check for remote confusing sets of anyconnects
+  fail:
+    # note that if you hit this, you will need to deal with uninstall/re-install crud.
+    msg: "There is more than one anyconnect package on remote... {{ remote_find_result }}"
+  when: remote_find_result.matched > 1
+  tags: vpn
+
+- name: Set default remote-name fact
+  set_fact:
+    remote_vpn_tgz: 0
+  tags: vpn
+
+- name: Set remote-name fact
+  set_fact:
+    remote_vpn_tgz: 1
+  when: remote_find_result.matched == 1
+  tags: vpn
+
+- name: Unpack anyconnect
+  remote_user: ansible
+  become: no
+  unarchive:
+    remote_src: yes
+    src: "{{ remote_find_result.files[0].path }}"
+    dest: "~/"
+    creates: "~/anyconnect-4.2.05015/"
+  when: remote_vpn_tgz
+  tags: vpn
+
+- name: Run anyconnect install
+  remote_user: ansible
+  become: yes
+  shell: echo -n y | ./vpn_install.sh > ~/vpn_shell.stdout
+  args:
+    chdir: "anyconnect-4.2.05015/vpn"
+    creates: "/opt/cisco/anyconnect/VPNManifest.dat"
+  tags: vpn
+

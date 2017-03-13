@@ -4,9 +4,16 @@
 
 - name: Install pieces required for vagrant, including virtualbox
   apt: name={{ item }} update_cache=yes
-  with_list:
+  with_items:
     - virtualbox
 
 - name: pull 1.9.2 vagrant, since xenial's 1.8 does not support xenial in the virtualbox
   apt:
     deb: https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.deb
+
+- name: install packer so we can build RackHD packer images
+  unarchive:
+    src: https://releases.hashicorp.com/packer/0.12.3/packer_0.12.3_linux_amd64.zip
+    dest: /usr/local/bin
+    creates: /usr/local/bin/packer
+    remote_src: True

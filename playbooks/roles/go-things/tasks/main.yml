@@ -3,7 +3,7 @@
 
 - name: gvm prereqs
   apt: name={{ item }} update_cache=yes
-  with_list:
+  with_items:
     - curl
     - git
     - mercurial
