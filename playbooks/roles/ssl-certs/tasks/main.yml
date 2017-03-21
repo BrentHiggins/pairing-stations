@@ -1,0 +1,9 @@
+---
+# Install any global certificates placed in the files directory for this role
+
+- name: Install any available certificates
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/share/ca-certificates
+  with_fileglob: "*.crt"
+  tags: certs

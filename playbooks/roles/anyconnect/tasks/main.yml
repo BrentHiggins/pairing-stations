@@ -3,11 +3,6 @@
 # skip the install if it can't find the base tgz either already
 # on the target machine OR sitting in the root of the (git) tree.
 
-- name: hello there
-  debug:
-    msg: "sdfsdfsdf"
-  tags: vpn
-
 - name: Determine if vpn package is on local box
   become: no
   local_action:

@@ -12,4 +12,5 @@
       export GIT_TERMINAL_PROMPT=1
       git config --global credential.helper 'cache --timeout=3600'
       git config --global push.default simple
+      export EDITOR=emacs
       PROMPT_DIRTRIM=2
