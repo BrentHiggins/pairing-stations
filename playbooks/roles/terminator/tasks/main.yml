@@ -10,6 +10,7 @@
     state: directory
     owner: pair
     group: pair
+  tags: terminator
 
 - name: install our terminator configuration file
   copy:
@@ -17,3 +18,4 @@
     dest: ~pair/.config/terminator/config
     owner: pair
     group: pair
+  tags: terminator

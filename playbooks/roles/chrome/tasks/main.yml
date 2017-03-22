@@ -8,7 +8,9 @@
     - libxss1
     - libappindicator1
     - libindicator7
+  tags: chrome
 
 - name: install chrome
   apt:
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  tags: chrome

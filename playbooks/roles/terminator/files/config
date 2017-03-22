@@ -9,7 +9,7 @@
   paste = <Primary>v
   reset = <Shift><Alt>k
   reset_clear = <Alt>k
-  search = <Primary>f
+  search = <Alt>f
   split_horiz = <Alt>d
   split_vert = <Shift><Alt>d
   switch_to_tab_1 = <Alt>1
@@ -38,7 +38,7 @@
     background_image = None
     copy_on_selection = True
     cursor_shape = ibeam
-    font = Monospace 11
+    font = Monospace 14
     foreground_color = "#ffffff"
     scrollback_infinite = True
     use_system_font = False

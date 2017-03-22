@@ -1,0 +1,8 @@
+---
+# Installs slack
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: install slack
+  apt:
+    deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-2.5.2-amd64.deb
+  tags: slack
