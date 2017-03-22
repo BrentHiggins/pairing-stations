@@ -25,10 +25,16 @@
     src: custom/
     dest: ~/.bash_it/custom/
 
-- name: set theme in .bashrc
+- name: Update bashrc with bashit specific settings
   remote_user: pair
   become: no
-  lineinfile:
-    dest: ~/.bashrc
-    regexp: '^export BASH_IT_THEME='
-    line: export BASH_IT_THEME='bakke'
+  blockinfile:
+    dest: .bashrc
+    state: present
+    insertbefore: "source .BASH_IT/bash_it.sh"
+    marker: "# {mark} ANSIBLE MANAGED bash-it settings"
+    block: |
+      export BASH_IT_THEME='bakke'
+      export SCM_GIT_SHOW_DETAILS=true
+      export SCM_THEME_CURRENT_USER_PREFFIX=' ☺︎ '
+  tags: [bashit, bashrc]

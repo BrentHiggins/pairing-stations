@@ -13,4 +13,6 @@
       git config --global credential.helper 'cache --timeout=3600'
       git config --global push.default simple
       export EDITOR=emacs
-      PROMPT_DIRTRIM=2
+      alias emacs="emacs -nw"
+      PROMPT_DIRTRIM=5
+  tags: bashrc
