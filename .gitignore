@@ -4,3 +4,4 @@ myenv_*
 *.retry
 anyconnect*tar.gz
 playbooks/roles/ssl-certs/files/*.crt
+playbooks/ssh-pub-keys

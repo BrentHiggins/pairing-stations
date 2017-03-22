@@ -1,0 +1,67 @@
+---
+# Setup ssh ids on machine and load in template config
+
+
+- name: create identity
+  remote_user: pair
+  become: no
+  shell: ssh-keygen -P '' -f ~/.ssh/id_rsa
+  args:
+    creates: ~/.ssh/id_rsa.pub
+  tags: ssh-keys
+
+- name: grab public ssh key
+  remote_user: pair
+  become: no
+  fetch:
+    src: ~/.ssh/id_rsa.pub
+    dest: ssh-pub-keys/{{ inventory_hostname }}
+    flat: yes
+    fail_on_missing: yes
+  tags: ssh-keys
+
+- name: add all keys to this host
+  remote_user: pair
+  become: no
+  authorized_key:
+    user: pair
+    key: "{{ lookup('file', '{{ item }}') }}"
+    state: present
+  with_fileglob:
+    - "ssh-pub-keys/*.local"
+  tags: ssh-keys
+
+- name: find out which hosts are already known
+  remote_user: pair
+  become: no
+  shell: ssh-keygen -F {{ item | basename }}
+  register: known_keys
+  ignore_errors: yes
+  changed_when: false
+  with_fileglob:
+    - "ssh-pub-keys/*.local"
+  tags: ssh-keys
+
+- name: hey
+  debug:
+    var: known_keys
+  tags: ssh-keys
+
+- name: add all hosts to know_hosts
+  remote_user: pair
+  become: no
+  shell: ssh -o "StrictHostKeyChecking no" {{ item | basename }}
+  #debug:
+  #  var: item
+  with_items:
+    - "{{known_keys|json_query(\"results[*].item\") }}"
+  tags: ssh-keys
+
+# todo: change from squash to bulklineinsert
+- name: copy in ssh base configuration file
+  remote_user: pair
+  become: no
+  copy:
+    src: ssh_conf
+    dest: ~/.ssh/config
+  tags: ssh-keys

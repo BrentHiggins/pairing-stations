@@ -1,0 +1,28 @@
+ServerAliveInterval 120
+
+Host lab* dev* build* infra* shell onrackapi
+    Hostname %h.hwimo.lab.emc.com
+
+# jump-host and example-of-proxy setup just outline how to set up a jump host.
+# They are not "live" configs
+Host jump_host
+    Hostname lab02
+    User onrack
+    ForwardAgent yes
+    StrictHostKeyChecking no
+
+Host example_of_proxy_setup
+    Hostname 192.168.1.38
+    User renasar
+    ProxyCommand ssh jump_host "nc %h %p" 2> /dev/null
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+
+Host *-pair
+    User pair
+    Hostname %h.local
+    ForwardX11 yes
+
+Host buildspy
+     User pi
+     Hostname buildspy.local

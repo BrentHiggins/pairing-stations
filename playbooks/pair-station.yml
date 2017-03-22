@@ -9,6 +9,7 @@
   roles:
     - base-os
     - ssl-certs
+    - ssh-interconnect
     - chrome
     - terminator
     - atom
