@@ -42,19 +42,12 @@
     - "ssh-pub-keys/*.local"
   tags: ssh-keys
 
-- name: hey
-  debug:
-    var: known_keys
-  tags: ssh-keys
-
 - name: add all hosts to know_hosts
   remote_user: pair
   become: no
   shell: ssh -o "StrictHostKeyChecking no" {{ item | basename }}
-  #debug:
-  #  var: item
   with_items:
-    - "{{known_keys|json_query(\"results[*].item\") }}"
+    - "{{known_keys|json_query(\"results[?rc==to_number('1')].item\") }}"
   tags: ssh-keys
 
 # todo: change from squash to bulklineinsert
