@@ -48,6 +48,15 @@
     value: "'auto'"
   tags: proxy
 
+- name: move unity launch bar to bottom of screen
+  gsettings:
+    user: pair
+    key: com.canonical.Unity.Launcher.launcher-position
+    value: "Bottom"
+  tags: desktop
+
+# ['application://org.gnome.Nautilus.desktop', 'application://unity-control-center.desktop', 'application://terminator.desktop', 'unity://running-apps', 'application://code.desktop', 'application://slack.desktop', 'application://virtualbox.desktop', 'application://cisco-anyconnect.desktop', 'application://google-chrome.desktop', 'unity://expo-icon', 'unity://devices']
+
 # vnc setup doesn't work yet, and I'm not sure that's what we want anyway!
 #- name: enable vnc
 #  gsettings:

@@ -6,7 +6,7 @@
   new_tab = <Alt>t
   new_terminator = <Primary><Alt>n
   new_window = <Alt>n
-  paste = <Primary>v
+  paste = <Alt>v
   reset = <Shift><Alt>k
   reset_clear = <Alt>k
   search = <Alt>f

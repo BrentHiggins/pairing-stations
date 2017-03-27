@@ -11,6 +11,7 @@
     - emacs
     - ansible
     - virtualenv
+    - okular
     - sshpass       # needed for cross polination of ssh-keys
     - python-dev    # need for pip stuff
     - libffi-dev    #  pycrypto needs

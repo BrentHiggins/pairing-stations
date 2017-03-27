@@ -29,7 +29,7 @@
       alias dci=duet-commit
       alias drv=duet-revert
       alias dmg=duet-merge
-      alias drb=rebase -i --exec 'git duet-commit --amend --reset-author'
+      alias drb="rebase -i --exec 'git duet-commit --amend --reset-author'"
       git config --global alias.ci duet-commit
   tags: [duet, bashrc]
 

@@ -6,6 +6,13 @@
   apt: name={{ item }} update_cache=yes
   with_items:
     - virtualbox
+    - virtualbox-ext-pack
+
+- name: Add users to vboxuser group
+  user:
+    name: "pair"
+    groups: vboxusers
+    append: true
 
 - name: pull 1.9.2 vagrant, since xenial's 1.8 does not support xenial in the virtualbox
   apt:

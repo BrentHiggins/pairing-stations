@@ -1,5 +1,9 @@
 ServerAliveInterval 120
 
+Host buildspy
+     User pi
+     Hostname buildspy.local
+
 Host lab* dev* build* infra* shell onrackapi
     Hostname %h.hwimo.lab.emc.com
 
@@ -23,6 +27,4 @@ Host *-pair
     Hostname %h.local
     ForwardX11 yes
 
-Host buildspy
-     User pi
-     Hostname buildspy.local
+
