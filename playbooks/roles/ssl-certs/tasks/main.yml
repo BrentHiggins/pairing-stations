@@ -7,3 +7,9 @@
     dest: /usr/local/share/ca-certificates
   with_fileglob: "*.crt"
   tags: certs
+
+- name: Update system certs from files
+  shell: update-ca-certificates
+  register: response
+  changed_when: "'0 added, 0 removed' not in response.stdout"
+  tags: certs
