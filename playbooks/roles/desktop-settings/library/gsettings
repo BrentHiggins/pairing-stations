@@ -6,8 +6,10 @@ import subprocess
 
 from ansible.module_utils.basic import *
 
+
 def _escape_single_quotes(string):
     return re.sub("'", r"'\''", string)
+
 
 def _split_key(full_key):
     key_array = full_key.split('.')
@@ -15,37 +17,70 @@ def _split_key(full_key):
     single_key = key_array[-1]
     return (schema, single_key)
 
-def _set_value(user, full_key, value):
 
+def _get_pidof(name):
+    pidof_out = subprocess.check_output(["pidof", name]).strip()
+    # print "x" * 80, pidof_out, pidof_out.split()
+    return list(map(int, pidof_out.split()))
+
+
+def _find_dbus():
+    screen_mgr_pids = _get_pidof('nautilus')
+    # print screen_mgr_pids, type(screen_mgr_pids)
+    screen_mgr_pid = screen_mgr_pids[0]
+    pid_file = "/proc/{}/environ".format(screen_mgr_pid)
+    # print pid_file
+    with open(pid_file, "r") as env_file:
+        env_data = env_file.read()
+
+    m = re.search("(?P<dbus_set>DBUS_SESSION_BUS_ADDRESS=.*?)\0", env_data)
+    assert m is not None, \
+        'Unable to locate "DBUS_SESSION_BUS_ADDRESS" in "{}"'.format(env_data)
+    return m.group('dbus_set')
+
+def _set_value(user, full_key, value):
+    dbus_set = _find_dbus()
     schema, single_key = _split_key(full_key)
     command = " ".join([
-        'export `/usr/bin/dbus-launch`',
+        'export {}'.format(dbus_set),
         ';',
         '/usr/bin/gsettings set', schema, single_key,
         "'%s'" % _escape_single_quotes(value),
-        ';',
-        'kill $DBUS_SESSION_BUS_PID &> /dev/null'
     ])
+    #command = " ".join([
+    #    'export `/usr/bin/dbus-launch`',
+    #    ';',
+    #    '/usr/bin/gsettings set', schema, single_key,
+    #    "'%s'" % _escape_single_quotes(value),
+    #    ';',
+    #    'kill $DBUS_SESSION_BUS_PID &> /dev/null'
+    #])
 
     return subprocess.check_output([
         'su', '-', user , '-c', command
     ]).strip()
 
 def _get_value(user, full_key):
-
+    dbus_set = _find_dbus()
     schema, single_key = _split_key(full_key)
     command = " ".join([
-        'export `/usr/bin/dbus-launch`',
+        'export {}'.format(dbus_set),
         ';',
         '/usr/bin/gsettings get', schema, single_key,
-        ';',
-        'kill $DBUS_SESSION_BUS_PID &> /dev/null'
     ])
+#    command = " ".join([
+#        'export `/usr/bin/dbus-launch`',
+#        ';',
+#        '/usr/bin/gsettings get', schema, single_key,
+#        ';',
+#        'kill $DBUS_SESSION_BUS_PID &> /dev/null'
+#    ])
 
     rv = subprocess.check_output([
         'su', '-', user , '-c', command
     ]).strip()
     rv = re.sub(r'''^.?int\d+\s+''', '', rv)
+    print "RV", rv
     return rv
 
 def main():
@@ -71,6 +106,7 @@ def main():
     old_value = _get_value(user, key)
     m = re.match(r'''^\[(?P<inlist>.*)]''', old_value)
     if m is not None:
+        print "y" * 80, append_list
         if append_list:
             inside_list = m.group("inlist")
             list_items = []
@@ -83,7 +119,7 @@ def main():
             else:
                 value = old_value
         else:
-            value = "[ {0} ]".format(value)
+            value = "{0}".format(value)
 
     changed = old_value != value
 

@@ -52,47 +52,33 @@
   gsettings:
     user: pair
     key: com.canonical.Unity.Launcher.launcher-position
-    value: "Bottom"
+    value: "'Bottom'"
   tags: desktop
 
-# ['application://org.gnome.Nautilus.desktop', 'application://unity-control-center.desktop', 'application://terminator.desktop', 'unity://running-apps', 'application://code.desktop', 'application://slack.desktop', 'application://virtualbox.desktop', 'application://cisco-anyconnect.desktop', 'application://google-chrome.desktop', 'unity://expo-icon', 'unity://devices']
+- name: set up favorites app
+  gsettings:
+    user: pair
+    key: com.canonical.Unity.Launcher.favorites
+    value: "['application://org.gnome.Nautilus.desktop', 'application://unity-control-center.desktop', 'application://kde4-okular.desktop', 'application://slack.desktop', 'application://virtualbox.desktop', 'application://cisco-anyconnect.desktop', 'application://terminator.desktop', 'application://code.desktop', 'application://google-chrome.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
+  tags: desktop
 
-# vnc setup doesn't work yet, and I'm not sure that's what we want anyway!
-#- name: enable vnc
-#  gsettings:
-#    user: pair
-#    key: org.gnome.Vino.enabled
-#    value: "true"
+- name: Setting up Okular as default pdf
+  remote_user: pair
+  become: no
+  ini_file:
+    dest: ~/.config/mimeapps.list
+    section: Default Applications
+    option: application/pdf
+    value: kde4-okularApplication_fb.desktop
+  tags: desktop
 
-# - name: set vnc password
-#   gsettings:
-#     user: pair
-#     key: org.gnome.Vino.vnc-password
-#     value: ""
+- name: Setting up Okular as default pdf
+  remote_user: pair
+  become: no
+  ini_file:
+    dest: ~/.config/mimeapps.list
+    section: Added Associations
+    option: application/pdf
+    value: kde4-okularApplication_fb.desktop
+  tags: desktop
 
-# - name: clear vnc prompt enabled
-#   gsettings:
-#     user: pair
-#     key: org.gnome.Vino.prompt-enabled
-#     value: "false"
-
-# - name: set vnc auth methods
-#   gsettings:
-#     user: pair
-#     key: org.gnome.Vino.authentication-methods
-#     value: "'vnc'"
-
-# - name: workaround for gnome bug in encryption to/from macs
-#   gsettings:
-#     user: pair
-#     key: org.gnone.vino.require-encryption
-#     value: "false"
-
-
-# does not work yet
-#- name: Add applications to dock
-#  gsettings:
-#    user: pair
-#    key: com.canonical.Unity.Launcher.favorites
-#    append: true
-#    value: application://code.desktop

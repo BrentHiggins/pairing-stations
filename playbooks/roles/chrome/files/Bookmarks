@@ -1,0 +1,54 @@
+{
+   "checksum": "8eb5d11a64ec0ec2e5f21385bb3c667b",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13135115189341791",
+            "id": "6",
+            "name": "Roebling",
+            "type": "url",
+            "url": "https://roebling.hwimo.lab.emc.com/"
+         }, {
+            "date_added": "13135115289532828",
+            "id": "7",
+            "meta_info": {
+               "last_visited_desktop": "13135115289532932"
+            },
+            "name": "RackHD-portal",
+            "type": "url",
+            "url": "https://rackhd.github.io/"
+         }, {
+            "date_added": "13135115335646642",
+            "id": "8",
+            "meta_info": {
+               "last_visited_desktop": "13135115335646807"
+            },
+            "name": "Rackhd-readthedocs",
+            "type": "url",
+            "url": "https://rackhd.readthedocs.io/en/latest/index.html"
+         } ],
+         "date_added": "13135099996720611",
+         "date_modified": "13135115335646642",
+         "id": "1",
+         "name": "Bookmarks bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13135099996720617",
+         "date_modified": "0",
+         "id": "2",
+         "name": "Other bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13135099996720618",
+         "date_modified": "0",
+         "id": "3",
+         "name": "Mobile bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

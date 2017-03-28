@@ -14,3 +14,19 @@
   apt:
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   tags: chrome
+
+- name: make chrome configuration dir
+  remote_user: pair
+  become: no
+  file:
+    path: ~/.config/google-chrome/Default
+    state: directory
+  tags: chrome
+
+- name: install chrome Bookmarks
+  remote_user: pair
+  become: no
+  copy:
+    src: Bookmarks
+    dest: ~/.config/google-chrome/Default/Bookmarks
+  tags: chromex

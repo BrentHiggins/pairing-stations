@@ -5,17 +5,17 @@
   apt: name=terminator
 
 - name: make terminator configuration dir
+  remote_user: pair
+  become: no
   file:
     path: ~pair/.config/terminator
     state: directory
-    owner: pair
-    group: pair
   tags: terminator
 
 - name: install our terminator configuration file
+  remote_user: pair
+  become: no
   copy:
     src: config
     dest: ~pair/.config/terminator/config
-    owner: pair
-    group: pair
   tags: terminator

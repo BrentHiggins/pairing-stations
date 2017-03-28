@@ -37,7 +37,7 @@
   [[default]]
     background_image = None
     copy_on_selection = True
-    cursor_shape = ibeam
+    cursor_shape = Block
     font = Monospace 14
     foreground_color = "#ffffff"
     scrollback_infinite = True
