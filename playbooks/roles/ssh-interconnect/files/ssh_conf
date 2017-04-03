@@ -1,3 +1,4 @@
+# BEGIN ANSIBLE MANAGED ssh settings
 ServerAliveInterval 120
 
 Host buildspy
@@ -9,6 +10,7 @@ Host lab* dev* build* infra* shell onrackapi
 
 # jump-host and example-of-proxy setup just outline how to set up a jump host.
 # They are not "live" configs
+
 Host jump_host
     Hostname lab02
     User onrack
@@ -26,5 +28,5 @@ Host *-pair
     User pair
     Hostname %h.local
     ForwardX11 yes
-
+# END ANSIBLE MANAGED host pair settings
 
