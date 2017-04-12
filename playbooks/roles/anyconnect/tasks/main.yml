@@ -74,3 +74,9 @@
     creates: "/opt/cisco/anyconnect/VPNManifest.dat"
   tags: vpn
 
+- name: add proxy setting enable/disable script
+  copy:
+    src: dell-emc-proxy-hack.sh
+    dest: /etc/NetworkManager/dispatcher.d/dell-emc-proxy-hack.sh
+    mode: 0700
+  tags: vpn

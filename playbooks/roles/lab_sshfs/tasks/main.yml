@@ -1,0 +1,29 @@
+---
+# playbook to setup sshfs to lab filesystems
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+
+- name: Allow pair to do 'sshfs' without password
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^pair ALL.* /usr/bin/sshfs'
+    line: 'pair ALL=(ALL) NOPASSWD: /usr/bin/sshfs'
+    validate: visudo -cf %s
+  tags: sshfs
+- name: Allow pair to do 'umount' without password
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^pair ALL.* /bin/umount'
+    line: 'pair ALL=(ALL) NOPASSWD: /bin/umount'
+    validate: visudo -cf %s
+  tags: sshfs
+- name: add sshfs_me util script
+  remote_user: pair
+  become: false
+  copy:
+    src: sshfs_me
+    dest: ~/.local/bin/
+    mode: 0700
+  tags: sshfs

@@ -22,6 +22,7 @@
     - misc-bash-settings
     - anyconnect
     - slack
+    - lab_sshfs
     - desktop-settings
 
 

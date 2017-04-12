@@ -5,6 +5,7 @@
 - name: Install the studio
   apt:
     deb: https://go.microsoft.com/fwlink/?LinkID=760868
+  tags: codestudio
 
 - name: Copy in starting config
   remote_user: pair
@@ -12,3 +13,17 @@
   copy:
     src: User/
     dest: ~/.config/Code/User
+  tags: codestudio
+
+- name: Install extensions
+  remote_user: pair
+  become: false
+  shell: code --install-extension {{ item }}
+  changed_when: "'is already installed.' not in response.stdout"
+  register: response
+  with_items:
+    - donjayamanne.python
+    - haaaad.ansible
+    - magicstack.MagicPython
+    - robertohuertasm.vscode-icons
+  tags: codestudio

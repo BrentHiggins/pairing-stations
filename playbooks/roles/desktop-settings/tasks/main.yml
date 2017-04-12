@@ -45,7 +45,7 @@
   gsettings:
     user: pair
     key: org.gnome.system.proxy.mode
-    value: "'auto'"
+    value: "'none'"
   tags: proxy
 
 - name: move unity launch bar to bottom of screen

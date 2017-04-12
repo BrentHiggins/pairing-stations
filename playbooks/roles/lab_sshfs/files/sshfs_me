@@ -1,0 +1,15 @@
+#!/bin/bash
+echo -n "enter dell/emc user name:"
+read user
+
+# just make sure!
+p='/home/pair'
+sudo umount -f ${p}/lab
+echo "Initiating connection to ssh-mount your home directory"
+echo "You may be asked to accept a ssh key and/or enter your password"
+echo "Your directory will be located at /home/pair/lab"
+echo "When you exit the vpn, make sure to hit ctrl-c here first!"
+mkdir -p ${p}/lab
+sudo sshfs -f -o IdentityFile=${p}/.ssh/id_rsa \
+     -o allow_other \
+     ${user}@lab10.hwimo.lab.emc.com:/emc/${user} ${p}/lab
