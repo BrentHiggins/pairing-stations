@@ -7,16 +7,19 @@
   with_items:
     - virtualbox
     - virtualbox-ext-pack
+  tags: vagrantenv
 
 - name: Add users to vboxuser group
   user:
     name: "pair"
     groups: vboxusers
     append: true
+  tags: vagrantenv
 
 - name: pull 1.9.2 vagrant, since xenial's 1.8 does not support xenial in the virtualbox
   apt:
     deb: https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.deb
+  tags: vagrantenv
 
 - name: install packer so we can build RackHD packer images
   unarchive:
@@ -24,3 +27,23 @@
     dest: /usr/local/bin
     creates: /usr/local/bin/packer
     remote_src: True
+  tags: vagrantenv
+
+- name: get vagrant plugin lists
+  shell: vagrant plugin list
+  register: vagrant_plugin_list_output
+  tags: vagrantenv
+  changed_when: false
+
+- name: install vagrant plugins
+  shell: vagrant plugin install {{ item }}
+  when: vagrant_plugin_list_output.stdout.find('{{ item }}') == -1
+  with_items:
+    - vagrant-cachier
+  tags: vagrantenv
+
+- name: update vagrant plugins
+  shell: vagrant plugin update
+  register: vagrant_update_output
+  changed_when: "'All plugins are up to date' not in vagrant_update_output.stdout"
+  tags: vagrantenv
