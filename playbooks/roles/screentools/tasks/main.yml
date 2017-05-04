@@ -1,0 +1,17 @@
+---
+# playbook to setup screen tools (like simple screen recorder)
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Add the simple screen reporter repo
+  apt_repository:
+    repo: 'ppa:maarten-baert/simplescreenrecorder'
+    state: present
+  tags: screentools
+
+- name: Bring in simplescreenrecorder packages
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - simplescreenrecorder
+    - simplescreenrecorder-lib:i386
+  tags: screentools
+  
