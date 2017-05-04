@@ -1,0 +1,19 @@
+---
+# playbook to put firefox esr into place
+#  Copyright (c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+
+- name: Insure base firefox is not installed
+  apt: name=firefox state=absent
+  tags: firefox
+
+- name: Add firefox-esr repo
+  apt_repository:
+    repo: 'ppa:jonathonf/firefox-esr'
+    state: present
+  tags: firefox
+
+- name: Bring in firefox-esr
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - firefox-esr
+  tags: firefox

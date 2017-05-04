@@ -23,6 +23,7 @@
     - anyconnect
     - slack
     - screentools
+    - firefox-esr
     - lab_sshfs
     - desktop-settings
 
