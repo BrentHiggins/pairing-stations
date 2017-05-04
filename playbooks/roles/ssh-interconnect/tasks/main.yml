@@ -50,11 +50,41 @@
     - "{{known_keys|json_query(\"results[?rc==to_number('1')].item\") }}"
   tags: ssh-keys
 
-# todo: change from squash to bulklineinsert
 - name: copy in ssh base configuration file
   remote_user: pair
   become: no
-  copy:
-    src: ssh_conf
+  blockinfile:
     dest: ~/.ssh/config
+    state: present
+    marker: "# {mark} ANSIBLE MANAGED ssh settings"
+    block: |
+        ServerAliveInterval 120
+
+        Host buildspy
+            User pi
+            Hostname buildspy.local
+
+        Host lab* dev* build* infra* shell onrackapi
+            Hostname %h.hwimo.lab.emc.com
+
+        # jump-host and example-of-proxy setup just outline how to set up a jump host.
+        # They are not "live" configs
+
+        Host jump_host
+            Hostname lab02
+            User onrack
+            ForwardAgent yes
+            StrictHostKeyChecking no
+
+        Host example_of_proxy_setup
+            Hostname 192.168.1.38
+            User renasar
+            ProxyCommand ssh jump_host "nc %h %p" 2> /dev/null
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+
+        Host *-pair
+            User pair
+            Hostname %h.local
+            ForwardX11 yes
   tags: ssh-keys
