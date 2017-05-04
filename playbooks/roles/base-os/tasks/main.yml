@@ -13,6 +13,7 @@
     - virtualenv
     - sshfs
     - okular
+    - remmina       # vnc/rdp/ssh/nx remote desktop thang
     - sshpass       # needed for cross polination of ssh-keys
     - python-dev    # need for pip stuff
     - libffi-dev    #  pycrypto needs

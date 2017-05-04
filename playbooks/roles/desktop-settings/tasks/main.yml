@@ -59,7 +59,7 @@
   gsettings:
     user: pair
     key: com.canonical.Unity.Launcher.favorites
-    value: "['application://org.gnome.Nautilus.desktop', 'application://unity-control-center.desktop', 'application://kde4-okular.desktop', 'application://slack.desktop', 'application://virtualbox.desktop', 'application://cisco-anyconnect.desktop', 'application://terminator.desktop', 'application://code.desktop', 'application://google-chrome.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
+    value: "['application://org.gnome.Nautilus.desktop', 'application://remmina.desktop', 'application://unity-control-center.desktop', 'application://kde4-okular.desktop', 'application://slack.desktop', 'application://virtualbox.desktop', 'application://cisco-anyconnect.desktop', 'application://terminator.desktop', 'application://code.desktop', 'application://google-chrome.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
   tags: desktop
 
 - name: Setting up Okular as default pdf
