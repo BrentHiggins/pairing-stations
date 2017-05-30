@@ -55,3 +55,19 @@ on can be introduced into the playbook/roles. ```./doit-setup-pairing``` can the
 * I tried pinning apps to the dock in the desktop-settings, but it didn't work. Currently commented out.
 * Same with turning on a VNC server, though that may not be needed.
 * The biggest thing: how to get to physical stacks
+
+# Note-keeping place for windows/pairs
+ * todo: make this into real readme above!
+
+## Preping base OS
+ * windows-64
+ * update to "creator" (most recent feature)
+ * renamed machine (kiwi-tree)
+ * https://msdn.microsoft.com/en-us/commandline/wsl/install_guide
+ * Follow windows prep directions here... http://docs.ansible.com/ansible/intro_windows.html#windows-system-prep
+ * TURN OFF Hyper-V!!!!! Control Panel/Programs/Turn Windows features on-off/ uncheck Hyper-V
+
+
+### todos
+ * why is initial ssh not going up correcrtly
+ *
